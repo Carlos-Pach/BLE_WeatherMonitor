@@ -1,0 +1,62 @@
+{
+	"folders": [
+		{
+			"path": "../../esp32_IoT_FW"
+		},
+		{
+			"name": "espUART",
+			"path": "../../espUART"
+		},
+		{
+			"name": "esp32_devc",
+			"path": "../../esp32_devc"
+		},
+		{
+			"name": "esp32_ble_gattc",
+			"path": "../../esp32_ble_gattc"
+		},
+		{
+			"name": "esp32_ble_gatts",
+			"path": "../../esp32_ble_gatts"
+		},
+		{
+			"name": "esp32s_ble_gattc",
+			"path": "../../esp32s_ble_gattc"
+		},
+		{
+			"name": "esp32_i2c_ble",
+			"path": "../../esp32_i2c_ble"
+		},
+		{
+			"name": "esp32s_ble_gatts",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"editor.tokenColorCustomizations": {
+			"textMateRules": [
+				{
+					"scope": "googletest.failed",
+					"settings": {
+						"foreground": "#f00"
+					}
+				},
+				{
+					"scope": "googletest.passed",
+					"settings": {
+						"foreground": "#0f0"
+					}
+				},
+				{
+					"scope": "googletest.run",
+					"settings": {
+						"foreground": "#0f0"
+					}
+				}
+			]
+		},
+		"files.associations": {
+			"freertos.h": "c"
+		}
+	}
+}
