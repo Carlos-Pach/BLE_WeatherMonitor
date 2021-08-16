@@ -39,7 +39,7 @@ and esp32s_ble_gatts/include/gatts_weather_table.h
 
 ![Wiring](https://github.com/Carlos-Pach/BLE_WeatherMonitor/blob/main/20210811_030828.jpeg)
 
-![nRF_app](https://github.com/Carlos-Pach/BLE_WeatherMonitor/blob/main/Screenshot_20210804-165118_nRF%20Connect_1.jpeg)
+![nRF_app](https://github.com/Carlos-Pach/BLE_WeatherMonitor/blob/main/Screenshot_20210811-030900_nRF%20Connect.jpeg)
 
 
   
