@@ -194,7 +194,6 @@ static const uint8_t char_prop_read_notify         = ESP_GATT_CHAR_PROP_BIT_READ
 #endif
 
 static const uint8_t weather_ccc[2]                = {0x00, 0x00} ;   // error: defined but not used
-//static const uint8_t battery_ccc[2]                 = {0x00, 0x00} ;
 
 
 // misc parameters
@@ -480,18 +479,13 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
                 ESP_LOGI(GATTS_TABLE_TAG, "GATT_WRITE_EVT, handle = %d, value len = %d, value :", param->write.handle, param->write.len);
                 esp_log_buffer_hex(GATTS_TABLE_TAG, param->write.value, param->write.len);
                 
-                if (weather_handle_table[IDX_CHAR_CFG_A] == param->write.handle && param->write.len == 2){
+                // add updates for temperature and humidity w/ notifications
+                if ((weather_handle_table[IDX_CHAR_CFG_A] == param->write.handle) && (param->write.len == 2)){
                     uint16_t descr_value = param->write.value[1]<<8 | param->write.value[0];
                     if (descr_value == 0x0001){
                         ESP_LOGI(GATTS_TABLE_TAG, "notify enable");
-                        uint8_t notify_data[15];
-                        for (int i = 0; i < sizeof(notify_data); ++i)
-                        {
-                            notify_data[i] = i % 0xff;
-                        }
-                        //the size of notify_data[] need less than MTU size
                         esp_ble_gatts_send_indicate(gatts_if, param->write.conn_id, weather_handle_table[CHAR_A_VAL],
-                                                sizeof(notify_data), notify_data, false);
+                                                sizeof(tempInC), (uint8_t*)&tempInC, false);
                     } else if (descr_value == 0x0002){
                         ESP_LOGI(GATTS_TABLE_TAG, "indicate enable");
                         uint8_t indicate_data[15];
@@ -501,6 +495,30 @@ static void gatts_profile_event_handler(esp_gatts_cb_event_t event, esp_gatt_if_
                         }
                         //the size of indicate_data[] need less than MTU size
                         esp_ble_gatts_send_indicate(gatts_if, param->write.conn_id, weather_handle_table[CHAR_A_VAL],
+                                            sizeof(indicate_data), indicate_data, true);
+                    }
+                    else if (descr_value == 0x0000){
+                        ESP_LOGI(GATTS_TABLE_TAG, "notify/indicate disable ");
+                    }else{
+                        ESP_LOGE(GATTS_TABLE_TAG, "unknown descr value");
+                        esp_log_buffer_hex(GATTS_TABLE_TAG, param->write.value, param->write.len);
+                    }
+
+                } else if ((weather_handle_table[IDX_CHAR_CFG_B] == param->write.handle) && (param->write.len == 2)){
+                    uint16_t descr_value = param->write.value[1]<<8 | param->write.value[0];
+                    if (descr_value == 0x0001){
+                        ESP_LOGI(GATTS_TABLE_TAG, "notify enable");
+                        esp_ble_gatts_send_indicate(gatts_if, param->write.conn_id, weather_handle_table[CHAR_B_VAL],
+                                                sizeof(humidityBLE), (uint8_t*)&humidityBLE, false);
+                    } else if (descr_value == 0x0002){
+                        ESP_LOGI(GATTS_TABLE_TAG, "indicate enable");
+                        uint8_t indicate_data[15];
+                        for (int i = 0; i < sizeof(indicate_data); ++i)
+                        {
+                            indicate_data[i] = i % 0xff;
+                        }
+                        //the size of indicate_data[] need less than MTU size
+                        esp_ble_gatts_send_indicate(gatts_if, param->write.conn_id, weather_handle_table[CHAR_B_VAL],
                                             sizeof(indicate_data), indicate_data, true);
                     }
                     else if (descr_value == 0x0000){
