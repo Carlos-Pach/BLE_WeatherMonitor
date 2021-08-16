@@ -10,8 +10,8 @@ The project also displays the same data on the OLED panel.
 
 Development board used for this project is STM32F4 Discovery. 
 RTOS was used to handle multiple tasks such as: BME280 data 
-retrieval, OLED data display, potentiometer OLED dimming, 
-and ESP32 data transmission.
+retrieval and transmission, OLED data transmission, 
+potentiometer OLED dimming, and ESP32 data transmission.
 
 # BME280
 
@@ -37,9 +37,23 @@ and esp32s_ble_gatts/include/gatts_weather_table.h
 
 ## Screenshots
 
+The picture shows the wiring between the STM32,
+BME280, SSD1306, and ESP32. The project uses an external
+power bank to power the project.
+
 ![Wiring](https://github.com/Carlos-Pach/BLE_WeatherMonitor/blob/main/20210811_030828.jpeg)
+
+The picture shows a screenshot from the Nordic nRF app.
+Under "Environmental Sensing" are the BLE data specifications
+for both Temperature and Humidity. 
+
 
 ![nRF_app](https://github.com/Carlos-Pach/BLE_WeatherMonitor/blob/main/Screenshot_20210811-030900_nRF%20Connect.jpeg)
 
+
+  
+## Demo
+
+TODO: Link Youtube video here
 
   
