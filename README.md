@@ -79,6 +79,6 @@ for both Temperature and Humidity.
 | SSD1306   | D0        | D1      | RES       | DC       | CS        |
 ----------------------------------------------------------------------
 
-  
+ ``` 
 ## Demo video
   [Video](https://youtu.be/3c85SFc8Bkc)
